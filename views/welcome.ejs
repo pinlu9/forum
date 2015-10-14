@@ -1,0 +1,23 @@
+<div id="top">
+<li>
+  <a href="/welcome"><button><%= currentUser %></button></a>
+  <a href="/threads"><button>See Board</button></a>
+  <a href="/users/login"><button>Log Out</button></a>
+
+</li>
+</div>
+
+    <form action="/threads" method="post">
+      <h1>Welcome to forum, <%= currentUser %></h1>
+  <br>
+    <br>
+      <br>
+
+      <textarea type="text"
+              name="thread[content]"
+              placeholder= "Enter text here...">
+      </textarea>
+      <br>
+
+      <input  type="submit">
+    </form>

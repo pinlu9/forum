@@ -1,0 +1,7 @@
+<a href="/threads">Back to threads</a>
+
+<h1>Threads by: <%= author %></h1>
+
+<% threads.forEach(function (thread) { %>
+  <h3><%= thread.content %></h3>
+<% }) %>

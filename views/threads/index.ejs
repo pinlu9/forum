@@ -1,0 +1,32 @@
+<div id="top">
+  <li>
+    <a href="/welcome"><button>Home</button></a>
+    <a href="/users/login"><button>Log Out</button></a>
+  </li>
+</div>
+
+<a href="/threads/new"><h1><i class="fa fa-comments-o fa-5x"></i></h1></a>
+
+<% threads.forEach(function (thread) { %>
+<div class="catalogy">
+  <p>
+      <%= thread.content %> @
+      <div class="group">
+      <a href="/authors/<%= thread.author %>"></a>
+
+      <a href="/threads/<%= thread._id %>/show"><i class="fa fa-retweet"></i></a>
+
+      <a href="/threads/<%= thread._id %>/edit"><i class="fa fa-pencil"></i></a>
+
+      <form class="delete-form"
+            action="/threads/<%= thread._id %>?_method=DELETE"
+            method="post">
+        <input id="delete-button" type="submit" value="Delete">
+
+      </form>
+    </div>
+  </p>
+</div>
+<% }) %>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
