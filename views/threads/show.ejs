@@ -2,8 +2,8 @@
 
 <div id="top">
   <li>
-    <a href="#"><button>Home</button></a>
-    <a href="/threads"><button>Back</button></a>
+    <a href="#" class="box1">Home</a>
+    <a href="/threads" class="box2">Back</a>
   </li>
 </div>
 
@@ -14,8 +14,8 @@
 <h4><%= thread.content %></h4>
 
 </div>
-  <form       action="/authors/<%= thread.author %>?_method=PATCH"
-              method="post">
+<form     action="/threads/<%= thread._id %>?_method=PATCH"
+          method="post">
     <textarea class="newcomment"
               type="text"
               name="thread[content]"

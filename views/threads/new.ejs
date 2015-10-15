@@ -2,14 +2,20 @@
 
 <div id="top">
   <li>
-    <a href="#"><button>Home</button></a>
-    <a href="/threads"><button>Back</button></a>
+    <a href="#" class="box1">Home</a>
+    <a href="/threads" class="box2">Message Board</a>
   </li>
 </div>
 
 <h1><i class="fa fa-comments-o fa-5x"></i></h1>
 
 <form action="/threads" method="post">
+  <input class="topic" type="topic"
+          size="25"
+        name="thread[topic]"
+        placeholder="Topic">
+<br><br>
+
   <textarea type="text"
           name="thread[content]"
           placeholder= "Enter text here...">

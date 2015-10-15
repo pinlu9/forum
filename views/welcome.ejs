@@ -1,23 +1,33 @@
 <div id="top">
-<li>
-  <a href="/welcome"><button><%= currentUser %></button></a>
-  <a href="/threads"><button>See Board</button></a>
-  <a href="/users/login"><button>Log Out</button></a>
-
-</li>
+  <li>
+    <a href="/welcome"  class="box1"><%= currentUser %></a>
+    <a href="/threads"  class="box2">See Board</a>
+    <a href="/users/login" class="logout">Log Out</a>
+  </li>
 </div>
 
-    <form action="/threads" method="post">
-      <h1>Welcome to forum, <%= currentUser %></h1>
+
+<br>
+<br>
+<br>
+<form action="/threads" method="post">
+  <h1>Welcome to forum</h1>
   <br>
     <br>
       <br>
+    <input  class="topic"
+            type="topic"
+            size="25"
+            name="thread[topic]"
+            placeholder="Topic">
+<br>
+<br>
 
-      <textarea type="text"
+    <textarea type="text"
               name="thread[content]"
               placeholder= "Enter text here...">
-      </textarea>
-      <br>
+    </textarea>
+<br>
 
-      <input  type="submit">
-    </form>
+    <input  type="submit">
+</form>

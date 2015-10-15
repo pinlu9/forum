@@ -55,6 +55,7 @@ server.use(function (req, res, next) { // ulimate logger
   next();
 });
 
+
 //routes
 var userController = require('./controllers/users.js');
 server.use('/users', userController);
@@ -63,6 +64,7 @@ server.get('/welcome', function (req, res){
   if(req.session.currentUser) {
     res.render('welcome', {
       currentUser: req.session.currentUser
+
     });
   } else {
     res.redirect(301, '/users/');
@@ -78,9 +80,11 @@ server.get('/welcome', function (req, res){
 
 var Thread = mongoose.model ("thread", {
   User: String,
-  content: { type: String, maxlength: 500},
-  comments: [ { author: String, content: String }]
-  // likes: { type: Number, default: 0 }
+
+  content: { type: String, maxlength: 200},
+  comments: [ { author: String, content: String }],
+  topic: { type: String, maxlength: 100},
+  likes: [{ type: Number, default: 0 }]
 });
 
 
@@ -92,8 +96,10 @@ server.get('/threads', function (req, res) {
   Thread.find({}, function (err, allThreads) {
     if (err) {
       res.redirect(302, '/welcome');
+        console.log(err);
     } else {
       res.render('threads/index', {
+        currentUser: req.session.currentUser,
         threads: allThreads
       });
     }
@@ -103,13 +109,17 @@ server.get('/threads', function (req, res) {
 server.post('/threads', function (req, res) {
   var thread = new Thread({
     author: req.session.authorName,
-    content: req.body.thread.content
+    content: req.body.thread.content,
+    topic: req.body.thread.topic,
+    likes: req.body.thread.likes
+
   });
 
   thread.save(function (err, newThread) {
     if (err) {
       console.log("Thread rejected");
       res.redirect(302, '/threads/new');
+        console.log(err);
     } else {
       console.log("New thread saved!");
       res.redirect(302, '/threads');
@@ -123,9 +133,14 @@ server.get('/threads/:id/show', function (req, res) {
   Thread.findOne({
     _id: threadID
   }, function (err, foundThread) {
+
+    // threads.push({
+    //   _id: threadID
+    // });
     if (err) {
       res.write("YOUR TOPIC ID IS BAD");
       res.end();
+        console.log(err);
     } else {
       res.render('threads/show', {
         thread: foundThread
@@ -143,6 +158,7 @@ server.get('/threads/:id/edit', function (req, res) {
     if (err) {
       res.write("YOUR TOPIC ID IS BAD");
       res.end();
+        console.log(err);
     } else {
       res.render('threads/edit', {
         thread: foundThread
@@ -164,6 +180,7 @@ server.patch('/threads/:id', function (req, res) {
       foundThread.update(threadParams, function (errTwo, thread) {
         if (errTwo) {
           console.log("ERROR UPDATING");
+            console.log(err);
         } else {
           console.log("UPDATED!");
           res.redirect(302, "/threads");
@@ -198,6 +215,7 @@ server.get('/authors/:name', function (req, res) {
     author: authorName
   }, function (err, authorThreads) {
     if (err) {
+        console.log(err);
 
     } else {
       res.render('authors/threads', {
@@ -217,42 +235,6 @@ res.send("Your Journey ends here.");
 res.end();
 });
 
-
-db.on('error', function (){
-  console.log("Database errors!");
-});
-
-db.once('open', function (){
-  console.log("Database UP and RUNNING!");
-});
-
-
 server.listen(3000, function (){
   console.log("Server UP and RUNNING!");
 });
-
-
-
-
-
-
-
-//
-//
-// var express   = require('express'),
-//     PORT      = process.env.PORT || 5432,
-//     server    = express(),
-//     MONGOURI  = process.env.MONGOLAB_URI || "mongodb://localhost:27017",
-//     dbname    ="db_test",
-//     mongoose  = require("mongoose");
-//
-//
-//     server.get('/super-secret-test', function (req, res) {
-//       res.write("welcome to my amazing app");
-//       res.end();
-//     });
-//
-// mongoose.connect(MONGOURI + "/" + dbname);
-//     server.listen(PORT, function() {
-//       console.log("SERVER IS UP ON PORT:", PORT);
-//     });

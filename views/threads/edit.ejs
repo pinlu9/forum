@@ -2,18 +2,21 @@
 
 <div id="top">
   <li>
-    <a href="#"><button>Home</button></a>
-    <a href="/threads"><button>Back</button></a>
+    <a href="#" class="box1">Home</a>
+    <a href="/threads" class="box2">Back</a>
   </li>
 </div>
 
-<h1><i class="fa fa-pencil fa-5x"></i></h1>
 
-<form action="/threads/<%= thread._id %>?_method=PATCH"
-      method="post">
-         <textarea type="text"
-            name="thread[content]"><%= thread.content %>
-         </textarea>
-         <br/>
-  <input type="submit">
+
+
+<h1><i class="fa fa-pencil fa-5x"></i></h1>
+<h1><%= thread.topic %></h1>
+<form     action="/threads/<%= thread._id %>?_method=PATCH"
+          method="post">
+<textarea type="text"
+          name="thread[content]"><%= thread.content %>
+</textarea>
+<br/>
+  <input   type="submit">
 </form>

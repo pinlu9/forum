@@ -1,22 +1,28 @@
 <div id="top">
   <li>
-    <a href="/welcome"><button>Home</button></a>
-    <a href="/users/login"><button>Log Out</button></a>
+    <a href="#"  class="box1"><%= currentUser %></a>
+    <a href="/users/login" class="logout">Log Out</a>
   </li>
 </div>
 
 <a href="/threads/new"><h1><i class="fa fa-comments-o fa-5x"></i></h1></a>
 
 <% threads.forEach(function (thread) { %>
+
+
 <div class="catalogy">
-  <p>
-      <%= thread.content %> @
+
+    <h1><%= thread.topic %></h1>
+    <h4><%= thread.content %>@<%= currentUser %></h4>
+
       <div class="group">
       <a href="/authors/<%= thread.author %>"></a>
 
       <a href="/threads/<%= thread._id %>/show"><i class="fa fa-retweet"></i></a>
 
       <a href="/threads/<%= thread._id %>/edit"><i class="fa fa-pencil"></i></a>
+
+      <a href="/threads/<%= thread._id %>?_method=UPDATED"><i class="fa fa-thumbs-o-up"></i></a>
 
       <form class="delete-form"
             action="/threads/<%= thread._id %>?_method=DELETE"
