@@ -235,6 +235,6 @@ res.send("Your Journey ends here.");
 res.end();
 });
 
-server.listen(3000, function (){
+server.listen(PORT, function (){
   console.log("Server UP and RUNNING!");
 });
